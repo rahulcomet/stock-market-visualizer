@@ -3,16 +3,18 @@ import { StockService } from '../stock.service';
 import { StockDataDTO } from '../StockDataDTO';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-stock-chart',
   standalone: true,
-  imports: [BaseChartDirective],
+  imports: [BaseChartDirective, FormsModule],
   templateUrl: './stock-chart.component.html',
   styleUrls: ['./stock-chart.component.css']
 })
 export class StockChartComponent implements OnInit {
   stockData: StockDataDTO | undefined;
+  symbol: string = 'SPY'; // Default value - S&P 500 ETF
 
   public chartData: ChartConfiguration['data'] = {
     labels: [],
@@ -28,12 +30,54 @@ export class StockChartComponent implements OnInit {
 
   public chartOptions: ChartConfiguration['options'] = {
     responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Stock Price Over Time',
+        font: {
+          weight: 'bold',
+          size: 18  // You can adjust the size as needed
+        }
+      },
+      legend: {
+        display: true,
+        labels: {
+          font: {
+            weight: 'bold'
+          }
+        }
+      }
+    },
     scales: {
-      x: { display: true },
-      y: { display: true }
+      x: {
+        display: true,
+        title: {
+          display: true,
+          text: 'Date',
+          font: {
+            weight: 'bold'
+          }
+        },
+        grid: {
+          display: true
+        }
+      },
+      y: {
+        display: true,
+        title: {
+          display: true,
+          text: 'Price',
+          font: {
+            weight: 'bold'
+          }
+        },
+        grid: {
+          display: true
+        }
+      }
     }
   };
-
+  
   public chartType: ChartType = 'line';
 
   constructor(private stockService: StockService) {}
@@ -85,5 +129,9 @@ export class StockChartComponent implements OnInit {
         ]
       };
     }
+  }
+  // Called when the user clicks on "Fetch Data" 
+  onFetchData(): void {
+    this.fetchStockData(this.symbol);
   }
 }

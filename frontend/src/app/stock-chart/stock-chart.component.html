@@ -1,3 +1,8 @@
+<div>
+        <input type="text" [(ngModel)]="symbol" placeholder="Enter stock symbol" />
+        <button (click)="onFetchData()">Fetch Data</button>
+      </div>
+      
 <div style="display: block;">
     <canvas baseChart
             [data]="chartData"
