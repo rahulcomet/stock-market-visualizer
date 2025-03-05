@@ -39,7 +39,47 @@ A full-stack application to visualize stock data using a Spring Boot backend and
 
 ### Setup Instructions
 
-1. **Clone the Repository:**
+**Clone the Repository:**
    ```bash
    git clone https://github.com/yourusername/stock-market-visualizer.git
    cd stock-market-visualizer
+  ``` 
+## Running Locally
+
+1. **Start the Backend:**
+   - Open a terminal, navigate to the backend folder:
+     ```bash
+     cd backend/stock-market-backend
+     ```
+   - Run the Spring Boot application:
+     ```bash
+     .\mvnw.cmd spring-boot:run
+     ```
+   - Verify the backend is running by visiting:
+     ```
+     http://localhost:8080/api/hello
+     ```
+     (This should display a confirmation message.)
+
+2. **Start the Frontend:**
+   - Open a separate terminal, navigate to the frontend folder:
+     ```bash
+     cd frontend
+     ```
+   - Install dependencies (if not done already):
+     ```bash
+     npm install
+     ```
+   - Run the Angular application:
+     ```bash
+     ng serve
+     ```
+   - Open your browser at:
+     ```
+     http://localhost:4200
+     ```
+
+3. **Interacting with the Application:**
+   - On the frontend page, enter a stock symbol (e.g., IBM, SPY) in the input field.
+   - Click the "Fetch Data" button to update the chart with data fetched from the backend.
+
