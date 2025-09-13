@@ -1,1 +1,48 @@
-<app-stock-chart></app-stock-chart>
+<!-- Chart section -->
+<div *ngIf="lastSearchedTicker">
+  <h2>Stock Performance – last 100 trading days</h2>
+  <app-stock-chart></app-stock-chart>
+</div>
+
+<!-- News & Sentiment -->
+<div class="news-card">
+  <!-- Search form -->
+  <form class="news-controls" (ngSubmit)="loadTop3()">
+    <h2 class="news-title">
+      News &amp; Sentiment for
+      <input
+        [(ngModel)]="ticker"
+        name="ticker"
+        placeholder="NVDA"
+        aria-label="Ticker symbol"
+      />
+    </h2>
+    <button type="submit" [disabled]="loading || !ticker?.trim()">Enter</button>
+  </form>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading">Loading latest headlines…</div>
+
+  <!-- Error -->
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+  </div>
+
+  <!-- News list -->
+  <ul *ngIf="!loading && news.length > 0" class="news-list">
+    <li *ngFor="let n of news" class="news-item">
+      <a [href]="n.url" target="_blank" rel="noopener" class="title">{{ n.title }}</a>
+
+      <!-- sentiment badge (no ngClass needed) -->
+      <span class="sentiment"
+            [class.positive]="(n.overallSentimentLabel || '').toLowerCase().includes('bull')"
+            [class.negative]="(n.overallSentimentLabel || '').toLowerCase().includes('bear')"
+            [class.neutral]="(n.overallSentimentLabel || '').toLowerCase().includes('neutral')">
+        {{ n.overallSentimentLabel }}
+      </span>
+
+      <p class="summary">{{ n.summary }}</p>
+      <small class="time">{{ n.timePublished | date:'medium' }}</small>
+    </li>
+  </ul>
+</div>
