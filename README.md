@@ -50,11 +50,11 @@ A full-stack application to visualize stock data and display recent market news 
 1. **Start the Backend:**
    - Open a terminal, navigate to the backend folder:
      ```bash
-     cd backend/stock-market-backend
+     cd backend
      ```
    - Run the Spring Boot application:
      ```bash
-     .\mvnw.cmd spring-boot:run
+     ./mvnw spring-boot:run
      ```
    - Verify the backend is running by visiting:
      ```
